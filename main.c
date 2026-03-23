@@ -15,35 +15,33 @@ int main() {
 
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Falling Sand");
   while (!WindowShouldClose()) {
-    Vector2 mousePosition = GetMousePosition();
-    float deltaTime = GetFrameTime();
-    updateTimer += deltaTime; // increase the elapsed time
-
     BeginDrawing();
-
     ClearBackground(BLACK);
 
-    Vector2 gridCell = getGridCellFromMousePosition(mousePosition);
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && isInside(gridCell)) {
-      grid.data[(int)gridCell.y][(int)gridCell.x] = SAND;
-    }
-    if (IsMouseButtonDown(MOUSE_RIGHT_BUTTON) && isInside(gridCell)) {
-      grid.data[(int)gridCell.y][(int)gridCell.x] = AIR;
-    }
 
+    handleDrawingWithMouse(&grid);
+    
+    // Handle the update timer
+    float deltaTime = GetFrameTime();
+    updateTimer += deltaTime; // increase the elapsed time
     if (updateTimer >= UPDATE_RATE) {
       updateWorldGrid(&grid);
       updateTimer = 0.0f; // reset the timer
     }
+    
 
+    // Render the world
     renderWorldGrid(&grid);
 
+    // render the GUI if it's on
     if (isGUIOn)
       displayGUI();
     if (IsKeyPressed(KEY_TAB)) {
       isGUIOn = !isGUIOn;
     }
+
+
 
     
     EndDrawing();

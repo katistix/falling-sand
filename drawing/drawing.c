@@ -1,5 +1,6 @@
 #include "drawing.h"
 
+#include "engine/engine.h"
 #include "config/config.h"
 
 Vector2 getGridCellFromMousePosition(Vector2 mousePosition) {
@@ -27,4 +28,17 @@ int isInside(Vector2 gridPosition) {
     return 1;
 
   return 0;
+}
+
+
+void handleDrawingWithMouse(WorldGrid *worldGrid) {
+  Vector2 mousePosition = GetMousePosition();
+  Vector2 gridCell = getGridCellFromMousePosition(mousePosition);
+
+  if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && isInside(gridCell)) {
+    worldGrid->data[(int)gridCell.y][(int)gridCell.x] = SAND;
+  }
+  if (IsMouseButtonDown(MOUSE_RIGHT_BUTTON) && isInside(gridCell)) {
+    worldGrid->data[(int)gridCell.y][(int)gridCell.x] = AIR;
+  }
 }
