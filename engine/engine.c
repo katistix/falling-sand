@@ -1,5 +1,7 @@
 #include "engine.h"
 
+#include <raylib.h>
+
 
 
 void updateWorldGrid(WorldGrid *WorldGrid) {
