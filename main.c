@@ -3,14 +3,8 @@
 #include <stdlib.h>
 
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-#define CELL_SIZE 4
-#define STATUSBAR_HEIGHT 25
-#define GRID_WIDTH SCREEN_WIDTH/CELL_SIZE
-#define GRID_HEIGHT (SCREEN_HEIGHT-STATUSBAR_HEIGHT)/CELL_SIZE
-
-#define UPDATE_RATE 0.02f
+#include "config/config.h"
+#include "gui/gui.h"
 
 typedef enum {
     AIR,
@@ -107,6 +101,7 @@ int main(){
     WorldGrid grid = {0};
 
     float updateTimer = 0.0f;
+    int isGUIOn = 0;
 
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Falling Sand");
@@ -139,14 +134,19 @@ int main(){
         
         renderWorldGrid(&grid);
 
+        if(isGUIOn) displayGUI();
+        if(IsKeyPressed(KEY_TAB)) {
+            isGUIOn = !isGUIOn;
+        }
 
-        // draw GUI
-        const char* statusText = TextFormat("particles: %d, grid_xy: [%d, %d], mouse_xy: [%d, %d]",
-            0, 
-            (int)gridCell.x, (int)gridCell.y,
-            (int)mousePosition.x, (int)mousePosition.y
-        );
-        DrawText(statusText, 8, SCREEN_HEIGHT - 14 - 8, 14, RAYWHITE);
+
+
+        // // draw GUI
+        // const char* statusText = TextFormat("grid_xy: [%d, %d], mouse_xy: [%d, %d]",
+        //     (int)gridCell.x, (int)gridCell.y,
+        //     (int)mousePosition.x, (int)mousePosition.y
+        // );
+        // DrawText(statusText, 8, SCREEN_HEIGHT - 14 - 8, 14, RAYWHITE);
 
 
         EndDrawing();
