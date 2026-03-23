@@ -12,4 +12,4 @@ A tiny "falling sand" simulation **written in C** using [Raylib](https://www.ray
 ## current features
 
 - [x] hold `MOUSE_LEFT_BUTTON` to place `SAND`
-- [x] hold `MOUSE_RIGHT_BUTTON` to particles with `AIR`
+- [x] hold `MOUSE_RIGHT_BUTTON` to replace particles with `AIR`
